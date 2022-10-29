@@ -10,23 +10,27 @@ namespace TestAPI.Application
 {
     public class Product : IProduct
     {
-        
-        public List<Products> ReadProducts(ApplicationContext context)
+        private readonly ApplicationContext _context;  
+        public Product(ApplicationContext context)
         {
-            return context.Products.ToList();
+            _context = context;
         }
-        public Task DeleteProduct(int id,ApplicationContext context)
+        public List<Products> ReadProducts()
         {
-            var product = context.Products.FirstOrDefault(p => p.Id == id);
+            return _context.Products.ToList();
+        }
+        public Task DeleteProduct(int id)
+        {
+            var product = _context.Products.FirstOrDefault(p => p.Id == id);
             if (product == null) 
             { 
                 return Task.FromException(new Exception("Not Found!")); 
             }
-            context.Products.Remove(product);
-            context.SaveChanges();
+            _context.Products.Remove(product);
+            _context.SaveChanges();
             return Task.CompletedTask;
         }
-        public Task CreateProduct(UpsertProductModel createdProduct, ApplicationContext context)
+        public Task CreateProduct(UpsertProductModel createdProduct)
         {
             var product = new Products()
             {
@@ -37,13 +41,13 @@ namespace TestAPI.Application
                 Description = createdProduct.Description,
                 Availability = createdProduct.Availability
             };
-            context.Products.Add(product);
-            context.SaveChanges();
+            _context.Products.Add(product);
+            _context.SaveChanges();
             return Task.CompletedTask;
         }
-        public Task UpdateProduct([FromBody] UpsertProductModel product, ApplicationContext context)
+        public Task UpdateProduct([FromBody] UpsertProductModel product)
         {
-            var storedProduct = context.Products.FirstOrDefault(products => products.Id == product.Id);
+            var storedProduct = _context.Products.FirstOrDefault(products => products.Id == product.Id);
 
             if (storedProduct == null)
             {
@@ -55,7 +59,7 @@ namespace TestAPI.Application
             storedProduct.ProductTypeId = product.ProductTypeId;
             storedProduct.Description = product.Description;
             storedProduct.Availability = product.Availability;
-            context.SaveChanges();
+            _context.SaveChanges();
 
             return Task.CompletedTask;
         }

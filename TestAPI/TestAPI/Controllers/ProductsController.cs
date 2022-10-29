@@ -11,30 +11,34 @@ namespace TestAPI.Controllers
     [Route("[controller]")]
     public class ProductsController : ControllerBase
     {
+        public Product product;
+
         private readonly ApplicationContext _context;
-        public Product product = new Product();
         public ProductsController(ApplicationContext context)
         {
             _context = context;
+            product = new Product(_context);
         }
+
+         
 
         [HttpGet("GetAllProducts")]
         public List<Products> GetAllProducts()
         {
-            return product.ReadProducts(_context);
+            return product.ReadProducts();
         }
 
         [HttpDelete]
         public IActionResult DeleteProduct(int id)
         {
-            product.DeleteProduct(id, _context);
+            product.DeleteProduct(id);
             return Ok();
         }
 
         [HttpPost]
         public IActionResult PostProduct(UpsertProductModel createdProduct)
         {
-            product.CreateProduct(createdProduct, _context);
+            product.CreateProduct(createdProduct);
             return Ok(product);
         }
 
@@ -42,7 +46,7 @@ namespace TestAPI.Controllers
         [HttpPut]
         public IActionResult ProductPut([FromBody] UpsertProductModel products)
         {
-            product.UpdateProduct(products, _context);
+            product.UpdateProduct(products);
             return Ok();
         }
 
