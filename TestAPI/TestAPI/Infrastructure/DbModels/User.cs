@@ -18,8 +18,8 @@ namespace TestAPI.Infrastructure.DbModels
 
         public string Email { get; set; }
 
-        public virtual ICollection<ProductUser> ProductUsers { get; set; }
+        public virtual ICollection<ProductUser> ProductUsers { get; private set; }
 
-        public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<Comment> Comments { get; private set; }
     }
 }
