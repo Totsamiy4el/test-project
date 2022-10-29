@@ -7,7 +7,7 @@ namespace TestAPI.Interfaces.IProduct
 {
     public interface IProduct
     {
-        public List<Products> ReadProducts();
+        public List<Products> GetProducts();
         public Task DeleteProduct(int id);
         public Task CreateProduct (UpsertProductModel createdProduct);
         public Task UpdateProduct (UpsertProductModel updatedProduct);

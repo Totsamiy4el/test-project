@@ -25,7 +25,7 @@ namespace TestAPI.Controllers
         [HttpGet("GetAllProducts")]
         public List<Products> GetAllProducts()
         {
-            return product.ReadProducts();
+            return product.GetProducts();
         }
 
         [HttpDelete]

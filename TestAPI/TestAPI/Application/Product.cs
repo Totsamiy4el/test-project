@@ -15,7 +15,7 @@ namespace TestAPI.Application
         {
             _context = context;
         }
-        public List<Products> ReadProducts()
+        public List<Products> GetProducts()
         {
             return _context.Products.ToList();
         }
