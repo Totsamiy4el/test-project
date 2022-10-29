@@ -20,7 +20,7 @@ namespace TestAPI.Infrastructure.DbModels
 
         public string Mamory { get; set; }
 
-        public virtual ICollection<Products> Products { get; set; }
+        public virtual ICollection<Products> Products { get; private set; }
 
     }
 }

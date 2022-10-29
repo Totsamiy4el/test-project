@@ -15,6 +15,6 @@ namespace TestAPI.Infrastructure.DbModels
 
         public string Email { get; set; }
 
-        public virtual ICollection<ProductProvider> ProductProviders { get; set; }
+        public virtual ICollection<ProductProvider> ProductProviders { get; private set; }
     }
 }

@@ -25,8 +25,8 @@ namespace TestAPI.Infrastructure.DbModels
 
         public virtual ProductType ProductType { get; set; }
 
-        public virtual ICollection<ProductUser> ProductUsers { get; set; }
-        public virtual ICollection<ProductProvider> ProductProviders { get; set; }
-        public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<ProductUser> ProductUsers { get;private set; }
+        public virtual ICollection<ProductProvider> ProductProviders { get; private set; }
+        public virtual ICollection<Comment> Comments { get; private set; }
     }
 }

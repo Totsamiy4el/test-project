@@ -3,6 +3,7 @@ using System.Reflection.PortableExecutable;
 using TestAPI.ApiModels;
 using TestAPI.Infrastructure;
 using TestAPI.Infrastructure.DbModels;
+using TestAPI.Application;
 
 namespace TestAPI.Controllers
 {
@@ -19,31 +20,23 @@ namespace TestAPI.Controllers
         [HttpGet("GetAllProducts")]
         public List<Products> GetAllProducts()
         {
-            return _context.Products.ToList();
+            var readProduct = new CrudOperations();
+            return readProduct.ReadProducts(_context);
         }
 
         [HttpDelete]
         public IActionResult DeleteProduct(int id)
         {
-            _context.Products.Remove(_context.Products.FirstOrDefault(product => product.Id == id));
-            _context.SaveChanges();
+            var deleteProduct = new CrudOperations();
+            deleteProduct.DeleteProduct(id, _context);
             return Ok();
         }
 
         [HttpPost]
         public IActionResult PostProduct(UpsertProductModel createdProduct)
         {
-            var product = new Products()
-            {
-                Name = createdProduct.Name,
-                Price = createdProduct.Price,
-                Ñharacteristics = createdProduct.Ñharacteristics,
-                ProductTypeId = createdProduct.ProductTypeId,
-                Description = createdProduct.Description,
-                Availability = createdProduct.Availability
-            };
-            _context.Products.Add(product);
-            _context.SaveChanges();
+            var product = new CrudOperations();
+            product.CreateProduct(createdProduct, _context);
             return Ok(product);
         }
 
@@ -52,21 +45,9 @@ namespace TestAPI.Controllers
         public IActionResult ProductPut([FromBody] UpsertProductModel product)
         {
 
-            var storedProduct = _context.Products.FirstOrDefault(products => products.Id == product.Id);
-
-            if (storedProduct == null)
-            {
-                return NotFound();
-            }
-            storedProduct.Name = product.Name;
-            storedProduct.Price = product.Price;
-            storedProduct.Ñharacteristics = product.Ñharacteristics;
-            storedProduct.ProductTypeId = product.ProductTypeId;
-            storedProduct.Description = product.Description;
-            storedProduct.Availability = product.Availability;
-            _context.SaveChanges();
-
-            return Ok(storedProduct);
+            var products = new CrudOperations();
+            products.UpdateProduct(product,_context);
+            return Ok();
         }
 
 
