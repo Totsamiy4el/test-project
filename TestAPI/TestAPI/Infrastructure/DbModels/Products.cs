@@ -1,4 +1,7 @@
-﻿namespace TestAPI.Models
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace TestAPI.Infrastructure.DbModels
 {
     public class Products
     {
@@ -16,12 +19,11 @@
 
         public string Сharacteristics { get; set; }
 
-        public int TypeID { get; set; }
-
-        public bool Aviability { get; set; }
+        public int ProductTypeId { get; set; }
         public string? Description { get; set; }
+        public bool Availability { get; set; }
 
-        public virtual Type Type { get; set; }
+        public virtual ProductType ProductType { get; set; }
 
         public virtual ICollection<ProductUser> ProductUsers { get; set; }
         public virtual ICollection<ProductProvider> ProductProviders { get; set; }

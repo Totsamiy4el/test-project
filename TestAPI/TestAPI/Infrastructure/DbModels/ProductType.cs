@@ -1,4 +1,6 @@
-﻿namespace TestAPI.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace TestAPI.Infrastructure.DbModels
 {
     public class ProductType
     {

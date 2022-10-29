@@ -10,7 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<LocalDBContext>(options =>
+builder.Services.AddDbContext<ApplicationContext>(options =>
                 options.UseSqlServer("Data Source=DESKTOP-OO4F7QR;Initial Catalog=LocalDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
 
 var app = builder.Build();

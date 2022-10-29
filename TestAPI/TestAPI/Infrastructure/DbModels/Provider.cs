@@ -1,4 +1,5 @@
-﻿namespace TestAPI.Models
+﻿
+namespace TestAPI.Infrastructure.DbModels
 {
     public class Provider
     {
