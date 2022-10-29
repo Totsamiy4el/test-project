@@ -4,11 +4,11 @@ using System;
 using TestAPI.ApiModels;
 using TestAPI.Infrastructure;
 using TestAPI.Infrastructure.DbModels;
-using TestAPI.Interfaces.Proucts;
+using TestAPI.Interfaces.IProduct;
 
 namespace TestAPI.Application
 {
-    public class CrudOperations : IProduct
+    public class Product : IProduct
     {
         
         public List<Products> ReadProducts(ApplicationContext context)

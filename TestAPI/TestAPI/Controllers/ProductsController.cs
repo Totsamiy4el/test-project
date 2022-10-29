@@ -12,6 +12,7 @@ namespace TestAPI.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly ApplicationContext _context;
+        public Product product = new Product();
         public ProductsController(ApplicationContext context)
         {
             _context = context;
@@ -20,33 +21,28 @@ namespace TestAPI.Controllers
         [HttpGet("GetAllProducts")]
         public List<Products> GetAllProducts()
         {
-            var readProduct = new CrudOperations();
-            return readProduct.ReadProducts(_context);
+            return product.ReadProducts(_context);
         }
 
         [HttpDelete]
         public IActionResult DeleteProduct(int id)
         {
-            var deleteProduct = new CrudOperations();
-            deleteProduct.DeleteProduct(id, _context);
+            product.DeleteProduct(id, _context);
             return Ok();
         }
 
         [HttpPost]
         public IActionResult PostProduct(UpsertProductModel createdProduct)
         {
-            var product = new CrudOperations();
             product.CreateProduct(createdProduct, _context);
             return Ok(product);
         }
 
 
         [HttpPut]
-        public IActionResult ProductPut([FromBody] UpsertProductModel product)
+        public IActionResult ProductPut([FromBody] UpsertProductModel products)
         {
-
-            var products = new CrudOperations();
-            products.UpdateProduct(product,_context);
+            product.UpdateProduct(products, _context);
             return Ok();
         }
 

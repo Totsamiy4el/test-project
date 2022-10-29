@@ -1,8 +1,9 @@
 ﻿using TestAPI.ApiModels;
 using TestAPI.Infrastructure;
 using TestAPI.Infrastructure.DbModels;
+using TestAPI.Infrastructure.DbModels;
 
-namespace TestAPI.Interfaces.Proucts
+namespace TestAPI.Interfaces.IProduct
 {
     public interface IProduct
     {
