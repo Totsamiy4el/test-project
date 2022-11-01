@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using Microsoft.EntityFrameworkCore;
 using TestAPI.ApiModels;
 using TestAPI.Infrastructure;
 using TestAPI.Infrastructure.DbModels;
@@ -19,18 +17,18 @@ namespace TestAPI.Application
         {
             return _context.Products.ToList();
         }
-        public Task DeleteProduct(int id)
+        public async Task<IAsyncResult> DeleteProduct(int id)
         {
-            var product = _context.Products.FirstOrDefault(p => p.Id == id);
+            var product = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
             if (product == null) 
-            { 
+            {
                 return Task.FromException(new Exception("Not Found!")); 
             }
             _context.Products.Remove(product);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return Task.CompletedTask;
         }
-        public Task CreateProduct(UpsertProductModel createdProduct)
+        public async Task<IAsyncResult> CreateProduct(UpsertProductModel createdProduct)
         {
             var product = new Products()
             {
@@ -42,12 +40,12 @@ namespace TestAPI.Application
                 Availability = createdProduct.Availability
             };
             _context.Products.Add(product);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return Task.CompletedTask;
         }
-        public Task UpdateProduct([FromBody] UpsertProductModel product)
+        public async Task<IAsyncResult> UpdateProduct(UpsertProductModel product)
         {
-            var storedProduct = _context.Products.FirstOrDefault(products => products.Id == product.Id);
+            var storedProduct = await _context.Products.FirstOrDefaultAsync(products => products.Id == product.Id);
 
             if (storedProduct == null)
             {
@@ -59,7 +57,7 @@ namespace TestAPI.Application
             storedProduct.ProductTypeId = product.ProductTypeId;
             storedProduct.Description = product.Description;
             storedProduct.Availability = product.Availability;
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             return Task.CompletedTask;
         }
