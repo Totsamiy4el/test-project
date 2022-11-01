@@ -8,8 +8,8 @@ namespace TestAPI.Interfaces.IProduct
     public interface IProduct
     {
         public List<Products> GetProducts();
-        public Task DeleteProduct(int id);
-        public Task CreateProduct (UpsertProductModel createdProduct);
-        public Task UpdateProduct (UpsertProductModel updatedProduct);
+        public Task<IAsyncResult> DeleteProduct(int id);
+        public Task<IAsyncResult> CreateProduct (UpsertProductModel createdProduct);
+        public Task<IAsyncResult> UpdateProduct (UpsertProductModel updatedProduct);
     }
 }
